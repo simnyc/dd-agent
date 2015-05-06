@@ -1,9 +1,17 @@
+# stdlib
+import time
+
+# 3p
+from nose.plugins.attrib import attr
+try:
+    import psycopg2 as pg
+except ImportError:
+    pg = None
+
+# project
+from checks import AgentCheck
 from tests.checks.common import AgentCheckTest
 
-import time
-import psycopg2 as pg
-from nose.plugins.attrib import attr
-from checks import AgentCheck
 
 
 @attr(requires='pgbouncer')
