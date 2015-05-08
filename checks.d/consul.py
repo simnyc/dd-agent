@@ -138,5 +138,7 @@ class ConsulCheck(AgentCheck):
             for node, services in nodes_to_services.items():
                 node_level_tags = main_tags + [ 'consul_node_id:{0}'.format(node) ]
                 for service in services:
+                    all_tags = node_level_tags + [ 'consul_service_id:{0}'.format(service) ]
+
                     # Allows to ask something like: How many Services are provided by a given node?
-                    self.count('consul.catalog.services_up', value=1, tags=node_level_tags)
+                    self.count('consul.catalog.services_up', value=1, tags=all_tags)
