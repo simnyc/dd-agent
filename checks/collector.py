@@ -69,7 +69,6 @@ class Collector(object):
 
         # Unix System Checks
         self._unix_system_checks = {
-            'disk': u.Disk(log),
             'io': u.IO(log),
             'load': u.Load(log),
             'memory': u.Memory(log),
@@ -80,7 +79,6 @@ class Collector(object):
 
         # Win32 System `Checks
         self._win32_system_checks = {
-            'disk': w32.Disk(log),
             'io': w32.IO(log),
             'proc': w32.Processes(log),
             'memory': w32.Memory(log),
@@ -142,8 +140,8 @@ class Collector(object):
         events = payload['events']
         service_checks = payload['service_checks']
         if checksd:
-            self.initialized_checks_d = checksd['initialized_checks'] # is of type {check_name: check}
-            self.init_failed_checks_d = checksd['init_failed_checks'] # is of type {check_name: {error, traceback}}
+            self.initialized_checks_d = checksd['initialized_checks']  # is of type {check_name: check}
+            self.init_failed_checks_d = checksd['init_failed_checks']  # is of type {check_name: {error, traceback}}
         # Run the system checks. Checks will depend on the OS
         if self.os == 'windows':
             # Win32 system checks
@@ -159,11 +157,6 @@ class Collector(object):
         else:
             # Unix system checks
             sys_checks = self._unix_system_checks
-
-            # diskUsage = sys_checks['disk'].check(self.agentConfig)
-            # if diskUsage and len(diskUsage) == 2:
-            #     payload["diskUsage"] = diskUsage[0]
-            #     payload["inodes"] = diskUsage[1]
 
             load = sys_checks['load'].check(self.agentConfig)
             payload.update(load)
