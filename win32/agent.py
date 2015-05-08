@@ -3,11 +3,11 @@ import logging
 import modules
 import multiprocessing
 from optparse import Values
+import os
 import servicemanager
+import signal
 import sys
-import threading
 import time
-import tornado.httpclient
 from win32.common import handle_exe_click
 import win32event
 import win32evtlogutil
@@ -25,8 +25,8 @@ from config import (
     set_win32_cert_path,
     PathNotFound,
 )
-import dogstatsd
 from ddagent import Application
+import dogstatsd
 from emitter import http_emitter
 from jmxfetch import JMXFetch
 from util import get_hostname, get_os
@@ -285,8 +285,11 @@ class JMXFetchProcess(multiprocessing.Process):
         if self.is_enabled:
             self.jmx_daemon.run()
 
-    def stop(self):
-        pass
+    def terminate(self):
+        """
+        Overrides `terminate` method to properly exit JMXFetch subprocess
+        """
+        os.kill(self.pid, signal.SIGINT)
 
 
 if __name__ == '__main__':
