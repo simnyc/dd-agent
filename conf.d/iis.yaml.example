@@ -14,6 +14,10 @@ instances:
   # site name. If you don't define any sites, the check will pull the
   # aggregate values across all sites.
   #
+  # If you need to get metrics from all the sites you can set `get_all_sites`
+  # to true and will not have to use `sites` to specify list of sites. 
+  # Note that `sites` and `get_all_sites` are not compatible
+  #
   # Here's an example of configuration that would check the current machine
   # and a remote machine called MYREMOTESERVER. For the remote host we are
   # only pulling metrics from the default site.
@@ -34,3 +38,11 @@ instances:
   #     - east
   #   sites:
   #     - Default Web Site
+  #
+  # - host: MYOTHERREMOTESERVER
+  #   username: MYOTHERREMOTESERVER\fred
+  #   password: mysecretpassword
+  #   tags:
+  #     - myapp3
+  #     - west
+  #   get_all_sites:true

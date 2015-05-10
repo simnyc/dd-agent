@@ -61,6 +61,12 @@ class IIS(AgentCheck):
         password = instance.get('password', None)
         instance_tags = instance.get('tags', [])
         sites = instance.get('sites', ['_Total'])
+	if sites != '_Total' and _is_affirmative(intance.get('get_all_sites')):
+	     raise Exception("Setting get_all_sites to true is not compatible with using the sites statement")
+	else:
+	    get_all_sites = True
+
+	    
         w = self._get_wmi_conn(host, user, password)
 
         try:
@@ -74,7 +80,12 @@ class IIS(AgentCheck):
         expected_sites = set(sites)
         # Iterate over every IIS site
         for iis_site in wmi_cls:
-            # Skip any sites we don't specifically want.
+
+	    #if we're getting all site's metrics we can skip the '_Total' webiste
+	    if get_all_sites and iis_site.name == '_Total':
+	    #    continue
+
+            # if sites have been specified, skip any sites we don't specifically want.
             if iis_site.Name not in sites:
                 continue
 
