@@ -7,7 +7,6 @@ from config import _is_affirmative
 
 # 3rd party
 import wmi
-#test
 
 class IIS(AgentCheck):
     METRICS = [
@@ -62,12 +61,8 @@ class IIS(AgentCheck):
         password = instance.get('password', None)
         instance_tags = instance.get('tags', [])
         sites = instance.get('sites', ['_Total'])
-	if sites != '_Total' and _is_affirmative(instance.get('get_all_sites')):
-	     raise Exception("Setting get_all_sites to true is not compatible with using the sites statement")
-	else:
-	    get_all_sites = True
+	get_all_sites = instance.get('get_all_sites', False)
 
-	    
         w = self._get_wmi_conn(host, user, password)
 
         try:
