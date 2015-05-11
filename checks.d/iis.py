@@ -62,7 +62,7 @@ class IIS(AgentCheck):
         password = instance.get('password', None)
         instance_tags = instance.get('tags', [])
         sites = instance.get('sites', ['_Total'])
-	if sites != '_Total' and _is_affirmative(intance.get('get_all_sites')):
+	if sites != '_Total' and _is_affirmative(instance.get('get_all_sites')):
 	     raise Exception("Setting get_all_sites to true is not compatible with using the sites statement")
 	else:
 	    get_all_sites = True
