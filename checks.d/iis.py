@@ -83,7 +83,7 @@ class IIS(AgentCheck):
 
 	    #if we're getting all site's metrics we can skip the '_Total' webiste
 	    if get_all_sites and iis_site.name == '_Total':
-	    #    continue
+	        continue
 
             # if sites have been specified, skip any sites we don't specifically want.
             if iis_site.Name not in sites:

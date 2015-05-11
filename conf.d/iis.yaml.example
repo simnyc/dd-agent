@@ -14,8 +14,8 @@ instances:
   # site name. If you don't define any sites, the check will pull the
   # aggregate values across all sites.
   #
-  # If you need to get metrics from all the sites you can set `get_all_sites`
-  # to true and will not have to use `sites` to specify list of sites. 
+  # If you need to get metrics from all sites you can set `get_all_sites`
+  # to true and will not have to use the `sites` list.
   # Note that `sites` and `get_all_sites` are not compatible
   #
   # Here's an example of configuration that would check the current machine
