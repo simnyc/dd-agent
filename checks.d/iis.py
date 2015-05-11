@@ -3,6 +3,7 @@ Check the performance counters from IIS
 '''
 # project
 from checks import AgentCheck
+from config import _is_affirmative
 
 # 3rd party
 import wmi
