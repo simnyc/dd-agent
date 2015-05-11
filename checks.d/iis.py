@@ -86,7 +86,7 @@ class IIS(AgentCheck):
                 continue
 
             #if sites are specified or if we're getting all sites, must add the site name to tag
-	    if sites != '_Total' or get_all_sites
+	    if sites != '_Total' or get_all_sites:
                 tags = instance_tags + ['site:%s' % iis_site.Name]
 	    #if we want the aggregate values
 	    if sites == '_Total' and get_all_sites is False:
