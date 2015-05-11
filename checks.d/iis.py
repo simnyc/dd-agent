@@ -91,9 +91,9 @@ class IIS(AgentCheck):
 	    #if we want the aggregate values
 	    if sites == '_Total' and get_all_sites is False:
 	        if iis_site.name == '_Total':
-		   tags = instance_tags
-	         else:
-		     continue
+		    tags = instance_tags
+	        else:
+		    continue
 
             status = AgentCheck.CRITICAL if iis_site.ServiceUptime == 0 else AgentCheck.OK
             self.service_check("iis.site_up", status, tags=['site:%s' % iis_site.Name])
