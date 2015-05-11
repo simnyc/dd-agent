@@ -82,14 +82,18 @@ class IIS(AgentCheck):
 	        continue
 
             # if sites have been specified, skip any sites we don't specifically want.
-            if iis_site.Name not in sites:
+            if sites != '_Total' and iis_site.Name not in sites:
                 continue
 
-            # Tag with the site name if we're not using the aggregate
-            if iis_site.Name != '_Total':
+            #if sites are specified or if we're getting all sites, must add the site name to tag
+	    if sites != '_Total' or get_all_sites
                 tags = instance_tags + ['site:%s' % iis_site.Name]
-            else:
-                tags = instance_tags
+	    #if we want the aggregate values
+	    if sites == '_Total' and get_all_sites is False:
+	        if iis_site.name == '_Total':
+		   tags = instance_tags
+	         else:
+		     continue
 
             status = AgentCheck.CRITICAL if iis_site.ServiceUptime == 0 else AgentCheck.OK
             self.service_check("iis.site_up", status, tags=['site:%s' % iis_site.Name])
